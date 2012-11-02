@@ -1,0 +1,25 @@
+Alpha
+====
+Allow users to set word length and maximum guesses
+Create gameplay without "evil" setting, with display of guesses so far, progress etc. (Evil mode files are present but have not been implemented.)
+Allow users to input guesses with the keyboard onscreen (hitting return submits the guess)
+Implement two-sided interface and ability to start and end games, as well as change the settings for new games.
+No current scoring system is in place, and thus there is no high score screen yet. 
+When the user wins or loses they are shown an alert. Pressing OK in the release version of the app will redirect them to the high score screen; for now we haven't implemented that yet.
+The numbers are stored as objects in NSUserDefaults because you can't store ints in NSUserDefaults, only objects
+
+Release
+=======
+* Fully implemented evil mode, high scores, and unit tests on the good and evil models.
+* We chose not to check for alphabetic characters as guesses in the models because we check for that directly in the main view controller.
+* We also chose not to check for the case where no words are of the particular length a user selected, because we are working with a plist that has every length of word between its minimum and maximimum lengths represented. 
+* We chose to use a plist to store the high scores given the small size of the high score list and the ease of accessing and saving to plists, and defined scores as 600 + ((100 * word length) - (10 * # of incorrect guesses)) such that the minimum score is 450 and the maximum score is 3000.
+* High scores was implemented as a UITableView to provide the best looking display of the high scores (although due to restricted font size the largest of words may not be able to fully display the number of errors and points that go along with the word, although these are ranked correctly).
+* High scores page is now shown after the game is either won or lost, and with the correct vertical transition.
+* We chose to load the words from the plist once and pass it as an array to methods in gameplay to prevent having to reload it each time.
+* The slider for word length now changes its min and max values dynamically based on the maximum and minimum lengths of words in the plist used as the source, numbers which are stored in NSUserDefaults.
+* Enumerations for updating game were abstracted out to the UpdateGameEnums.h file.
+* Added colors, backgrounds, icon, and launch screen graphics.
+* Note: if you are testing the app with the simulator, we found at office hours that if you click "run" from xcode, then force quit the app within the simulator and attempt to restart it, the app will not properly restart as a result of xcode reporting the sigkill caused by force quitting.
+However, if you test on an iPhone or run from xcode, click "stop" within xcode and exit the app in the simulator, then force quit within the simulator and re-open the app, it will work as intended.
+
